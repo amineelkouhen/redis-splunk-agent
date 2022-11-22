@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.redis.splunk.agent'
+version = '1.0.0'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://splunk.jfrog.io/splunk/ext-releases-local"
+    }
+}
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'com.redis.splunk.agent.HecProducer'
+    }
+    archiveBaseName = "${rootProject.name}"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+dependencies {
+    testImplementation 'ch.qos.logback:logback-classic:1.4.5'
+    implementation 'ch.qos.logback.contrib:logback-json-classic:0.1.5'
+    implementation 'ch.qos.logback.contrib:logback-jackson:0.1.5'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.0'
+    implementation 'com.splunk.logging:splunk-library-javalogging:1.11.7'
+}

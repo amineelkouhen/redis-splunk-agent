@@ -1,0 +1,32 @@
+<configuration debug="true" scan="true" scanPeriod="15 seconds">
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="REDIS_SPLUNK" class="com.splunk.logging.HttpEventCollectorLogbackAppender">
+        <url>${splunk.url}</url>
+        <index>${splunk.index}</index>
+        <token>${splunk.token}</token>
+        <!--<batch_size_count>10</batch_size_count>-->
+        <disableCertificateValidation>true</disableCertificateValidation>
+        <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+            <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter" />
+            <timestampFormat>dd/MM/yyyy' 'HH:mm:ss.SSS Z</timestampFormat>
+            <appendLineSeparator>true</appendLineSeparator>
+        </layout>
+    </appender>
+
+    <logger name="redis.splunk.logger" level="info" additivity="false">
+        <appender-ref ref="REDIS_SPLUNK"/>
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
+    <root>
+        <appender-ref ref="REDIS_SPLUNK"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
