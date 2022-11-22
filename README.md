@@ -1,7 +1,17 @@
-# redis-splunk-agent
+# Splunk-Logback Agent
 Sample Logging Agent to send messages (Java logging using logback) to Splunk HTTP Event Collector (HEC)
 
 ## Usage
+Clone the Repository:
+```
+git clone https://github.com/amineelkouhen/redis-splunk-agent.git
+```
+
+Execute the Following Commands:
+```
+./gradlew fatJar
+```
+Then, 
 ```bash
 java -jar \
 -Dlogback.configurationFile=config/logback.xml \
@@ -9,5 +19,16 @@ java -jar \
 -Dsplunk.token=<HEC_TOKEN> \
 -Dsplunk.index=<HEC_INDEX_NAME> \
 -Diter=1 \
-redis-splunk-agent-1.0.0.jar
+build/lib/redis-splunk-agent-1.0.0.jar
+```
+
+Example:
+```bash
+java -jar \
+-Dlogback.configurationFile=config/logback.xml \
+-Dsplunk.url=http://localhost:8686 \
+-Dsplunk.token=RedisToken12345 \
+-Dsplunk.index=main \
+-Diter=1 \
+build/lib/redis-splunk-agent-1.0.0.jar
 ```
