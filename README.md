@@ -19,7 +19,7 @@ java -jar \
 -Dsplunk.token=<HEC_TOKEN> \
 -Dsplunk.index=<HEC_INDEX_NAME> \
 -Diter=1 \
-build/lib/redis-splunk-agent-1.0.0.jar
+build/libs/redis-splunk-agent-1.0.0.jar
 ```
 
 Example:
@@ -30,5 +30,5 @@ java -jar \
 -Dsplunk.token=RedisToken12345 \
 -Dsplunk.index=main \
 -Diter=1 \
-build/lib/redis-splunk-agent-1.0.0.jar
+build/libs/redis-splunk-agent-1.0.0.jar
 ```
